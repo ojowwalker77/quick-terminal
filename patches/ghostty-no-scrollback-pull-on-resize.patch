@@ -1,0 +1,18 @@
+Stop a resize from pulling scrollback back into view.
+
+Splitting a pane narrows it. With the default, a pane that had just been
+cleared would get its old lines back from scrollback above the prompt.
+
+diff --git a/src/terminal/Terminal.zig b/src/terminal/Terminal.zig
+index 75046ff..a5e9ed4 100644
+--- a/src/terminal/Terminal.zig
++++ b/src/terminal/Terminal.zig
+@@ -140,7 +140,7 @@ flags: packed struct {
+     /// buffer without scrollback (e.g. Windows ConPTY) so that we stay in
+     /// sync with it. See PageList.Resize for details. This is configuration
+     /// rather than terminal state so it is preserved across a full reset.
+-    resize_pull_scrollback: bool = true,
++    resize_pull_scrollback: bool = false,
+ 
+     /// True if the terminal is in a password entry mode. This is set
+     /// to true based on termios state. This is set
